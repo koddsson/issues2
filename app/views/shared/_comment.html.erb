@@ -1,0 +1,37 @@
+<div class="TimelineItem <%= classes %>">
+  <div class="avatar-parent-child TimelineItem-avatar d-none d-md-block">
+    <a class="d-inline-block" href="/<%= comment.user.login %>">
+      <img class="avatar rounded-1 avatar-user" height="40" width="40" alt="@<%= comment.user.login %>" src="https://avatars.githubusercontent.com/u/1544111?s=88&amp;v=4"></a>
+  </div>
+
+  <div class="timeline-comment-group js-minimizable-comment-group js-targetable-element TimelineItem-body my-0">
+    <div class="ml-n3 timeline-comment unminimized-comment comment previewable-edit js-task-list-container js-comment timeline-comment--caret reorderable-task-lists">
+      <div class="timeline-comment-header clearfix d-block d-sm-flex">
+        <h3 class="timeline-comment-header-text f5 text-normal">
+          <a class="d-inline-block d-md-none" data-hovercard-type="user" data-hovercard-url="/users/<%= comment.user.login %>/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/<%= comment.user.login %>"><img class="avatar rounded-1 avatar-user" height="20" width="20" alt="@<%= comment.user.login %>" src="https://avatars.githubusercontent.com/u/1544111?s=60&amp;v=4"></a>
+          <strong class="css-truncate">
+            <a class="author Link--primary css-truncate-target width-fit" show_full_name="false" data-hovercard-type="user" data-hovercard-url="/users/<%= comment.user.login %>/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/<%= comment.user.login %>"><%= comment.user.login %></a>
+          </strong>
+          commented
+          <a class="Link--secondary js-timestamp">
+            <relative-time datetime="2021-11-15T09:02:44Z" class="no-wrap" title="15 Nov 2021, 09:02 GMT">
+              <%= time_ago_in_words(comment.created_at) %>
+            </relative-time>
+          </a>
+        </h3>
+      </div>
+
+      <task-lists disabled="" sortable="">
+        <table class="d-block" data-paste-markdown-skip="">
+          <tbody class="d-block">
+            <tr class="d-block">
+              <td class="d-block comment-body markdown-body">
+                <%= comment.body_html.html_safe %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </task-lists>
+    </div>
+  </div>
+</div>
