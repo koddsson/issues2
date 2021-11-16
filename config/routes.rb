@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   
   get "/:user/:repo/issues", to: "issues#index", as: "issues"
+  get "/:user/:repo/issues/:number", to: "issues#show", as: "issue"
 end

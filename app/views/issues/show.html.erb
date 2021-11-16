@@ -1,0 +1,84 @@
+<% content_for :header do %>
+  <div class="Header-item Header-item--full min-width-0">
+    <nav aria-label="Breadcrumb" class="width-fit">
+      <ol class="Truncate hx_breadcrumb-header-crumbs">
+        <li class="list-style-none Truncate-text ml-0">
+          <a class="Header-link py-3 mt-n3 mb-n3 text-normal" href="https://github.com/<%= params[:user] %>"><%= params[:user] %></a>
+        </li>
+
+        <li class="list-style-none Truncate-text ml-0">
+          <span class="cursor-default mx-2 color-fg-muted">/</span>
+          <a class="Header-link py-3 mt-n3 mb-n3 text-normal" href="https://github.com/<%= params[:user] %>/<%= params[:repo] %>"><%= params[:repo] %></a>
+        </li>
+
+        <li class="list-style-none Truncate-text ml-0">
+          <span class="cursor-default mx-2 color-fg-muted">/</span>
+          <a class="Header-link py-3 mt-n3 mb-n3 text-normal" href="<%= issues_path(params[:user], params[:repo]) %>">
+            Issues
+          </a>
+        </li>
+
+        <li class="list-style-none Truncate-text ml-0">
+          <span class="cursor-default mx-2 color-fg-muted">/</span>
+          <span class="py-3 mt-n3 mb-n3 text-bold Header-current-page">#<%= @issue.number %></span>
+        </li>
+      </ol>
+    </nav>
+  </div>
+<% end %>
+
+<div class="clearfix new-discussion-timeline container-xl px-3 px-md-4 px-lg-5 mt-4">
+  <div class="gh-header mb-3">
+    <div class="gh-header-show ">
+      <div class="d-flex flex-column flex-md-row">
+        <div class="gh-header-actions mt-0 mt-md-2 mb-3 mb-md-0 ml-0 flex-md-order-1 flex-shrink-0 d-flex flex-items-start">
+          <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues/new/choose" class="btn btn-sm btn-primary m-0 ml-2 ml-md-2">
+            New issue
+          </a>
+          <div class="flex-auto text-right d-block d-md-none">
+            <a class="py-1">Jump to bottom</a>
+          </div>
+        </div>
+
+        <h1 class="gh-header-title mb-2 lh-condensed f1 mr-0 flex-auto wb-break-word" style="font-weight: 400;">
+          <span class="js-issue-title markdown-title">
+            <%= @issue.title %>
+          </span>
+          <span class="f1-light color-fg-muted">#<%= @issue.number %></span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="d-flex flex-items-center flex-wrap mt-0 gh-header-meta">
+      <div class="flex-shrink-0 mr-2 mb-2 flex-self-start flex-md-self-center">
+        <span class="State State--<%= @issue.state %>">
+          <svg height="16" class="octicon octicon-issue-<%= @issue.state %>ed" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path><path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"></path></svg> <%= @issue.state.capitalize %>
+        </span>
+      </div>
+
+      <div class="flex-auto min-width-0 mb-2">
+        <a class="author text-bold Link--secondary" data-hovercard-type="user" data-hovercard-url="/users/marcoscaceres/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/marcoscaceres">marcoscaceres</a>  opened this issue
+        <relative-time datetime="<%= @issue.created_at %>" class="no-wrap" title="15 Nov 2021, 04:49 GMT">
+          <%= time_ago_in_words(@issue.created_at) %> ago
+        </relative-time>
+        · <%= pluralize(@issue.comments, 'comment') %>
+
+      <span hidden>
+        <span><span></span><span> · May be fixed by <a href="https://github.com/whatwg/html/pull/7337" data-hydro-click="{&quot;event_type&quot;:&quot;issue_cross_references.click&quot;,&quot;payload&quot;:{&quot;reference_location&quot;:&quot;ISSUE_HEADER&quot;,&quot;user_id&quot;:318208,&quot;issue_id&quot;:1053212394,&quot;pull_request_id&quot;:780309713,&quot;originating_url&quot;:&quot;https://github.com/whatwg/html/issues/7336&quot;}}" data-hydro-click-hmac="30749c90889f67491b49dc966489c3ac599f633ac2613f5124f92d30b605aeae" data-hovercard-type="pull_request" data-hovercard-url="/whatwg/html/pull/7337/hovercard">#7337</a></span></span>
+      </span>
+      </div>
+    </div>
+  </div>
+<%= render(Primer::LayoutComponent.new) do |component| %>
+  <% component.sidebar { "Sidebar" } %>
+  <% component.main do %>
+    <div class="ml-0 pl-0 ml-md-6 pl-md-3">
+      <%= render partial: 'shared/comment', locals: {comment: @issue, classes: 'pt-0'} %>
+      <% @comments.each do |comment| %>
+        <%= render partial: 'shared/comment', locals: {comment: comment, classes: ''} %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+</div>
+

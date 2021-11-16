@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Issues2</title>
     <%= csrf_meta_tags %>
@@ -8,6 +8,40 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link href="https://unpkg.com/@primer/css@18.2.0/dist/primer.css" rel="stylesheet" />
     <%= javascript_importmap_tags %>
+
+    <style>
+      .comment-body {
+          width: 100%;
+          padding: 15px;
+          overflow: visible;
+          font-size: 14px;
+      }
+      .timeline-comment {
+        position: relative;
+        color: var(--color-fg-default);
+        background-color: var(--color-canvas-default);
+        border: 1px solid var(--color-border-default);
+        border-radius: 6px;
+      }
+      .timeline-comment-header-text {
+          min-width: 0;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          margin-bottom: 1px;
+          flex: 1 1 auto;
+      }
+      .timeline-comment-header {
+        align-items: center;
+        padding-right: 16px;
+        padding-left: 16px;
+        color: var(--color-fg-muted);
+        flex-direction: row-reverse;
+        background-color: var(--color-canvas-subtle);
+        border-bottom: 1px solid var(--color-border-default);
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+      }
+    </style>
   </head>
 
   <body>
