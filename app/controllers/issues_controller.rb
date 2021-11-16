@@ -1,5 +1,4 @@
 require 'octokit'
-require 'json'
 
 class IssuesController < ApplicationController
   def index
