@@ -1,7 +1,8 @@
 <div class="TimelineItem <%= classes %>">
   <div class="avatar-parent-child TimelineItem-avatar d-none d-md-block">
     <a class="d-inline-block" href="/<%= comment.user.login %>">
-      <img class="avatar rounded-1 avatar-user" height="40" width="40" alt="@<%= comment.user.login %>" src="https://avatars.githubusercontent.com/u/1544111?s=88&amp;v=4"></a>
+      <img class="avatar rounded-1 avatar-user" height="40" width="40" alt="@<%= comment.user.login %>" src="<%= comment.user.avatar_url %>" />
+    </a>
   </div>
 
   <div class="timeline-comment-group js-minimizable-comment-group js-targetable-element TimelineItem-body my-0">
