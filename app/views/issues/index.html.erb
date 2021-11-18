@@ -52,13 +52,6 @@
                   <a class="Link--muted" title="Open issues created by <%= issue.user.login %>" href="https://github.com/whatwg/html/issues?q=is%3Aissue+is%3Aopen+author%3A<%= issue.user.login %>"><%= issue.user.login %></a>
   
                 </span>
-  
-                <span class="d-none d-md-inline-flex">
-  
-  
-  
-                </span>
-  
               </div>
           </div>
   
@@ -68,9 +61,6 @@
                 <div class="AvatarStack-body tooltipped tooltipped-sw tooltipped-multiline tooltipped-align-right-1 mt-1" aria-label="Assigned to ">
                 </div>
               </div>
-            </span>
-  
-            <span class="ml-2 flex-1 flex-shrink-0">
             </span>
           </div>
           <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0" aria-label="Link to Issue. <%= issue.title %>" href="https://github.com/whatwg/html/issues/<%= issue.number %>"></a>
