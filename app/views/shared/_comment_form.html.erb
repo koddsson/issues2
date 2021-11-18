@@ -104,6 +104,26 @@
     border-bottom-color: transparent;
     border-left-color: transparent;
 }
+
+.timeline-new-comment .previewable-comment-form .comment-body {
+    padding: 4px 4px 16px;
+    border-bottom: 1px solid var(--color-border-default);
+}
+
+.previewable-comment-form .comment-body {
+    padding: 4px 4px 16px;
+    background-color: transparent;
+    border-bottom: 1px solid var(--color-border-default);
+}
+.comment-body {
+    width: 100%;
+    padding: 15px;
+    overflow: visible;
+    font-size: 14px;
+}
+.previewable-comment-form .comment {
+    border: 0;
+}
 </style>
 
 <div class="discussion-timeline-actions">
@@ -116,7 +136,10 @@
         <input type="text" name="required_field_d0ec" hidden="hidden" class="form-control"><input type="hidden" name="timestamp" value="1637245167160" autocomplete="off" class="form-control"><input type="hidden" name="timestamp_secret" value="4ca19c929f9f8dc39cc6dd321005b0eb5b09512ad8f3b275f0bb8a1f7692729e" autocomplete="off" class="form-control">
         <input type="hidden" name="issue" value="7342">
         <fieldset class="min-width-0">
-          <tab-container class="js-previewable-comment-form previewable-comment-form write-selected" data-preview-url="/preview?markdown_unsupported=false&amp;repository=11969507&amp;subject=7342&amp;subject_type=Issue">
+          <%= render(Primer::TabContainerComponent.new(
+            classes: "js-previewable-comment-form previewable-comment-form write-selected",
+            "data-preview-url": "/preview?markdown_unsupported=false&amp;repository=11969507&amp;subject=7342&amp;subject_type=Issue"
+          )) do %>
             <input type="hidden" value="qEG1EOuFLDx9cKzXSecHwY9bGMDyO1+u2srVbdbDLQe7GrjvMHgnCjrry1j4cIF9fcIE0O0FBdkjieD55BJRFw==" data-csrf="true" class="js-data-preview-url-csrf">
             <div class="comment-form-head tabnav d-flex flex-justify-between mb-2 p-0 tabnav--responsive flex-column border-bottom-0 mb-0 mb-lg-2 flex-items-stretch border-lg-bottom color-border-default flex-lg-items-center flex-lg-row">
               <div class="tabnav-tabs mx-0 mx-md-2 mt-0 mt-md-2 no-wrap d-flex flex-auto d-md-block" role="tablist">
@@ -399,13 +422,13 @@
             </file-attachment>
             <div role="tabpanel" class="js-preview-panel overflow-auto border-bottom mx-0 my-3 mx-md-2 mb-md-2" hidden="">
               <div class="comment js-suggested-changes-container" data-thread-side="">
-                <div class="comment-body markdown-body js-preview-body">
+                <div class="comment-body markdown-body js-preview-body" style="min-height: 131px;">
                   <p>Nothing to preview</p>
                 </div>
               </div>
             </div>
             <div class="comment-form-error mb-2 js-comment-update-error" hidden=""></div>
-          </tab-container>
+          <% end %>
         </fieldset>
         <div class="form-actions m-0 mx-md-2 my-md-2 p-0">
           <div id="partial-new-comment-form-actions" class="js-socket-channel js-updatable-content" data-channel="eyJjIjoiaXNzdWU6MTA1Njk5OTk3NzpzdGF0ZSIsInQiOjE2MzcyNDUxNjd9--d5fef4037115df24382af76356ad94dedd10ddc0dec4d785b2b9fd057f6018d0" data-url="/whatwg/html/issues/7342/show_partial?partial=issues%2Fform_actions">
