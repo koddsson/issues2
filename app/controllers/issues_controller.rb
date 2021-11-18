@@ -22,5 +22,6 @@ class IssuesController < ApplicationController
       params[:number],
       accept: "application/vnd.github.v3.html+json"
     )
+    @timeline = client.issue_timeline("#{params[:user]}/#{params[:repo]}", params[:number])
   end
 end
