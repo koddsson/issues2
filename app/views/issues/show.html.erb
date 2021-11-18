@@ -27,7 +27,7 @@
   </div>
 <% end %>
 
-<div class="clearfix new-discussion-timeline container-xl px-3 px-md-4 px-lg-5 mt-4">
+<main class="clearfix new-discussion-timeline container-xl px-3 px-md-4 px-lg-5 mt-4">
   <div class="gh-header mb-3">
     <div class="gh-header-show ">
       <div class="d-flex flex-column flex-md-row">
@@ -57,28 +57,28 @@
       </div>
 
       <div class="flex-auto min-width-0 mb-2">
-        <a class="author text-bold Link--secondary" data-hovercard-type="user" data-hovercard-url="/users/marcoscaceres/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/marcoscaceres">marcoscaceres</a>  opened this issue
+        <a class="author text-bold Link--secondary" href="https://github.com/<%= @issue.user.login %>">
+          <%= @issue.user.login %>
+        </a> opened this issue
         <relative-time datetime="<%= @issue.created_at %>" class="no-wrap" title="15 Nov 2021, 04:49 GMT">
-          <%= time_ago_in_words(@issue.created_at) %> ago
-        </relative-time>
+          <%= time_ago_in_words(@issue.created_at) %>
+        </relative-time> ago
         · <%= pluralize(@issue.comments, 'comment') %>
-
-      <span hidden>
-        <span><span></span><span> · May be fixed by <a href="https://github.com/whatwg/html/pull/7337" data-hydro-click="{&quot;event_type&quot;:&quot;issue_cross_references.click&quot;,&quot;payload&quot;:{&quot;reference_location&quot;:&quot;ISSUE_HEADER&quot;,&quot;user_id&quot;:318208,&quot;issue_id&quot;:1053212394,&quot;pull_request_id&quot;:780309713,&quot;originating_url&quot;:&quot;https://github.com/whatwg/html/issues/7336&quot;}}" data-hydro-click-hmac="30749c90889f67491b49dc966489c3ac599f633ac2613f5124f92d30b605aeae" data-hovercard-type="pull_request" data-hovercard-url="/whatwg/html/pull/7337/hovercard">#7337</a></span></span>
-      </span>
       </div>
     </div>
   </div>
-<%= render(Primer::LayoutComponent.new) do |component| %>
-  <% component.sidebar { "Sidebar" } %>
-  <% component.main do %>
-    <div class="ml-0 pl-0 ml-md-6 pl-md-3">
-      <%= render partial: 'shared/comment', locals: {comment: @issue, classes: 'pt-0'} %>
-      <% @comments.each do |comment| %>
-        <%= render partial: 'shared/comment', locals: {comment: comment, classes: ''} %>
-      <% end %>
-    </div>
+  <%= render(Primer::LayoutComponent.new) do |component| %>
+    <% component.sidebar do %>
+      <%= render partial: "shared/sidebar", locals: {issue: @issue} %>
+    <% end %>
+    <% component.main do %>
+      <div class="ml-0 pl-0 ml-md-6 pl-md-3">
+        <%= render partial: 'shared/comment', locals: {comment: @issue, classes: 'pt-0'} %>
+        <% @comments.each do |comment| %>
+          <%= render partial: 'shared/comment', locals: {comment: comment, classes: ''} %>
+        <% end %>
+      </div>
+      <%= render partial: 'shared/comment_form' %>
+    <% end %>
   <% end %>
-<% end %>
-</div>
-
+</main>

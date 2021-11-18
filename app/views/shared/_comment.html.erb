@@ -27,7 +27,7 @@
           <tbody class="d-block">
             <tr class="d-block">
               <td class="d-block comment-body markdown-body">
-                <%= comment.body_html.html_safe %>
+                <%= (comment.body_html || "<i>No description provided</i>").html_safe %>
               </td>
             </tr>
           </tbody>

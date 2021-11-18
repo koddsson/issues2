@@ -1,0 +1,170 @@
+<style>
+.avatar-user {
+  border-radius: 50% !important;
+}
+.avatar {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  background-color: var(--color-avatar-bg);
+  border-radius: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px var(--color-avatar-border);
+}
+
+.sidebar-assignee .assignee {
+    font-weight: 600;
+    color: var(--color-fg-muted);
+    vertical-align: middle;
+}
+
+.participation .participant-avatar {
+  float: left;
+  margin: 4px 0 0 4px;
+}
+
+.participation a {
+  color: var(--color-fg-muted);
+}
+
+.discussion-sidebar-heading {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--color-fg-muted);
+}
+
+.discussion-sidebar-item {
+  padding-top: 16px;
+  font-size: 12px;
+  color: var(--color-fg-muted);
+}
+
+.discussion-sidebar-item+.discussion-sidebar-item {
+  margin-top: 16px;
+  border-top: 1px solid var(--color-border-muted);
+}
+
+:root .hx_IssueLabel, [data-color-mode=light][data-light-theme*=light] .hx_IssueLabel, [data-color-mode=dark][data-dark-theme*=light] .hx_IssueLabel {
+  --lightness-threshold: 0.453;
+  --border-threshold: 0.96;
+  --border-alpha: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1));
+  background: rgb(var(--label-r), var(--label-g), var(--label-b));
+  color: hsl(0, 0%, calc(var(--lightness-switch) * 100%));
+  border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-alpha));
+}
+
+.hx_IssueLabel {
+  --perceived-lightness: calc( ((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255 );
+  --lightness-switch: max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1));
+}
+</style>
+
+  <div class="discussion-sidebar-item sidebar-assignee js-discussion-sidebar-item">
+    <form class="js-issue-sidebar-form" aria-label="Select assignees" action="/whatwg/html/issues/7342/assignees" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="put" autocomplete="off"><input type="hidden" name="authenticity_token" value="ZDwdjXh55+4PMZ6znVSGjYWd2UJlw/u6Sje4vY6zSn0dfQukb9J35JOR+3kGUS/SdskFvDwhkzw0Nu8JlaIGgg==">
+      <div class="discussion-sidebar-heading text-bold">
+        Assignees
+      </div>
+
+      <span class="css-truncate js-issue-assignees">
+        No one assigned
+      </span>
+    </form>
+  </div>
+  <div class="discussion-sidebar-item js-discussion-sidebar-item">
+    <div class="discussion-sidebar-heading text-bold">
+      Labels
+    </div>
+
+    <% @issue.labels.each do |label| %>
+      <div class="js-issue-labels d-flex flex-wrap">
+        <a href="https://github.com/<%= params[:user] %>/<%= params[:repo] %>/labels/<%= label.name %>" data-name="<%= label.name %>" style="--label-r:0;--label-g:152;--label-b:0;--label-h:120;--label-s:100;--label-l:29; background-color: #<%= label.color %>" class="IssueLabel hx_IssueLabel width-fit mb-1 mr-1">
+          <span class="css-truncate css-truncate-target width-fit"><%= label.name %></span>
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="discussion-sidebar-item sidebar-progress-bar js-discussion-sidebar-item">
+    <form class="js-issue-sidebar-form" aria-label="Select milestones" action="/whatwg/html/issues/7342/set_milestone?partial=issues%2Fsidebar%2Fshow%2Fmilestone" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="put" autocomplete="off"><input type="hidden" name="authenticity_token" value="+OzgcNiKzpiXf66G/6zND6zbQ5ufm6vIuU43Jh0KboCrHHX8hhiz0l5ErgoSjsF0LhMogWgsd8yRC3JgaBt8cg==">
+      <div class="discussion-sidebar-heading text-bold">
+        Milestone
+      </div>
+
+      No milestone
+
+    </form></div>
+
+
+
+    <div class="discussion-sidebar-item js-discussion-sidebar-item" data-issue-and-pr-hovercards-enabled="">
+      <form class="js-issue-sidebar-form" aria-label="Link issues" action="/whatwg/html/issues/closing_references?source_id=1056999977&amp;source_type=ISSUE" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="put" autocomplete="off"><input type="hidden" name="authenticity_token" value="k89P9pJO/Fig7YpFrbZ/TlY8J+qO0OI9QKwZcwFof2UXndK3LkvCBtyPjTG3QyPPHwge0Ij2FRso1+QcF8pHJg==">
+
+        <div class="discussion-sidebar-heading text-bold">
+          Linked pull requests
+        </div>
+
+
+
+        <p>Successfully merging a pull request may close this issue.</p>
+
+        None yet
+
+      </form>
+    </div>
+
+    <div class="discussion-sidebar-item sidebar-notifications">
+      <div class="thread-subscription-status js-socket-channel js-updatable-content" data-replace-remote-form-target="" data-channel="eyJjIjoibGlzdC1zdWJzY3JpcHRpb246cmVwb3NpdG9yeToxMTk2OTUwNzozMTgyMDgiLCJ0IjoxNjM3MjQyNzMyfQ==--9370348281c43d6b7e8c33a73c3772c7776fab82d416cf67de7a6c185e769709 eyJjIjoidGhyZWFkLXN1YnNjcmlwdGlvbjoxMDU2OTk5OTc3OjMxODIwOCIsInQiOjE2MzcyNDI3MzJ9--6ff5a821fb38fd56d5373efe58dd9aaa03b1ca2d05ea0cc3789e0af33345ff4e" data-url="/notifications/thread_subscription?repository_id=11969507&amp;thread_class=Issue&amp;thread_id=1056999977">
+        <div class="d-flex position-relative">
+          <details data-view-component="true" class="lh-default details-overlay details-overlay-dark details-reset color-fg-default width-full">
+            <summary aria-label="Customize notification settings" role="button" data-view-component="true" class="discussion-sidebar-heading discussion-sidebar-toggle">        <div class="d-flex flex-justify-between">
+                <div class="text-bold">Notifications</div>
+                <span>Customize</span>
+              </div>
+            </summary>
+            <details-dialog src="/notifications/thread_subscription_dialog?repository_id=11969507&amp;thread_class=Issue&amp;thread_id=1056999977" aria-label="Notification settings" data-view-component="true" class="Box Box--overlay flex-column fast overflow-auto d-flex f5 anim-fade-in" role="dialog" aria-modal="true">        <div class="Box-header">
+                <button class="Box-btn-octicon btn-octicon float-right" type="button" aria-label="Close dialog" data-close-dialog="">
+                  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+                    <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                  </svg>
+                </button>
+                <h3 class="Box-title mb-0 mt-0">
+                  Notification settings
+                </h3>
+              </div>
+
+              <include-fragment aria-label="Loading">
+                <div class="d-flex flex-items-center flex-justify-center" style="min-height: 315px;">
+                  <img alt="Loading..." src="https://github.githubassets.com/images/spinners/octocat-spinner-64.gif" width="32" height="32">
+                </div>
+              </include-fragment>
+            </details-dialog>
+          </details>
+        </div>
+      </div>
+      <form data-replace-remote-form="true" class="thread-subscribe-form" action="/notifications/thread" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="2to5D+qDp2K5IkzWWY7Z/+2N8JAr8TvH0NRuvQY6ZmDUS6daPkJz7AbjjyDx92xRS9rzwXLrNnCNF2bPdnjPcg==" autocomplete="off">      <input type="hidden" name="repository_id" value="11969507">
+        <input type="hidden" name="thread_id" value="1056999977">
+        <input type="hidden" name="thread_class" value="Issue">
+        <input type="hidden" name="id" value="subscribe">
+        <button type="submit" class="btn btn-block btn-sm thread-subscribe-button" data-disable-with="">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell">
+            <path d="M8 16a2 2 0 001.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 008 16z"></path><path fill-rule="evenodd" d="M8 1.5A3.5 3.5 0 004.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.018.018 0 00-.003.01l.001.006c0 .002.002.004.004.006a.017.017 0 00.006.004l.007.001h10.964l.007-.001a.016.016 0 00.006-.004.016.016 0 00.004-.006l.001-.007a.017.017 0 00-.003-.01l-1.703-2.554a1.75 1.75 0 01-.294-.97V5A3.5 3.5 0 008 1.5zM3 5a5 5 0 0110 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.518 1.518 0 0113.482 13H2.518a1.518 1.518 0 01-1.263-2.36l1.703-2.554A.25.25 0 003 7.947V5z"></path>
+          </svg> Subscribe
+        </button>
+      </form>
+      <p class="reason text-small color-fg-muted">You’re not receiving notifications from this thread.</p>
+    </div>
+<div id="partial-users-participants" class="discussion-sidebar-item">
+  <div class="participation">
+    <div class="discussion-sidebar-heading text-bold">
+      1 participants
+    </div>
+    <div class="participation-avatars d-flex flex-wrap">
+      <a class="participant-avatar" href="https://github.com/<%= issue.user.login %>">
+        <%= render(Primer::Beta::Avatar.new(src: issue.user.avatar_url, alt: "@#{@issue.user.login}", size: 24)) %>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
