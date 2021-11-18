@@ -5,7 +5,7 @@ class IssuesController < ApplicationController
     access_token = ENV["GITHUB_TOKEN"]
     client = Octokit::Client.new(access_token: access_token)
 
-    @issues = client.issues("#{params[:user]}/#{params[:repo]}")
+    @issues = client.issues("#{params[:user]}/#{params[:repo]}", {state: "open"})
   end
 
   def show
