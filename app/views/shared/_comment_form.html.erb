@@ -136,7 +136,7 @@
       </span>
     </div>
     <div class="border-0 border-md timeline-comment timeline-comment--caret">
-      <form class="js-new-comment-form js-needs-timeline-marker-header" action="/whatwg/html/issue_comments" accept-charset="UTF-8" method="post">
+      <form class="js-new-comment-form js-needs-timeline-marker-header" action="<%= comments_path(params[:user], params[:repo], params[:number]) %>" accept-charset="UTF-8" method="post">
         <fieldset class="min-width-0">
           <%= render(Primer::TabContainerComponent.new(
             classes: "js-previewable-comment-form previewable-comment-form write-selected",

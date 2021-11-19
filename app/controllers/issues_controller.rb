@@ -29,8 +29,13 @@ class IssuesController < ApplicationController
     access_token = ENV["GITHUB_TOKEN"]
     client = Octokit::Client.new(access_token: access_token)
 
-    puts request.body.string
-
     render html: client.markdown(request.body.string).html_safe
+  end
+
+  def comment
+    access_token = ENV["GITHUB_TOKEN"]
+    client = Octokit::Client.new(access_token: access_token)
+
+    client.add_comment("#{params[:user]}/#{params[:repo]}", params[:number], params[:comment][:body])
   end
 end
