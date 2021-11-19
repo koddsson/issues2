@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   
   get "/:user/:repo/issues", to: "issues#index", as: "issues"
   get "/:user/:repo/issues/:number", to: "issues#show", as: "issue"
+
+  # TODO: Move this to a separate controller
+  post "/preview", to: "issues#preview", as: "preview"
 end

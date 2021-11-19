@@ -24,4 +24,13 @@ class IssuesController < ApplicationController
     )
     @timeline = client.issue_timeline("#{params[:user]}/#{params[:repo]}", params[:number])
   end
+
+  def preview
+    access_token = ENV["GITHUB_TOKEN"]
+    client = Octokit::Client.new(access_token: access_token)
+
+    puts request.body.string
+
+    render html: client.markdown(request.body.string).html_safe
+  end
 end
