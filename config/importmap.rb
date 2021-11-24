@@ -1,10 +1,7 @@
 # Pin npm packages by running ./bin/importmap
 
 pin "application", preload: true
-pin "@hotwired/turbo-rails", to: "turbo.js", preload: true
-pin "@hotwired/stimulus", to: "stimulus.js", preload: true
-pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
-pin_all_from "app/javascript/controllers", under: "controllers"
+pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@primer/view-components", to: "https://ga.jspm.io/npm:@primer/view-components@0.0.61/app/components/primer/primer.js"
 pin "@github/auto-complete-element", to: "https://ga.jspm.io/npm:@github/auto-complete-element@3.0.2/dist/index.js"
 pin "@github/clipboard-copy-element", to: "https://ga.jspm.io/npm:@github/clipboard-copy-element@1.1.2/dist/index.umd.js"
