@@ -6,9 +6,8 @@ import '@primer/view-components'
 const tabContainers = document.querySelectorAll('.js-previewable-comment-form');
 for (const container of tabContainers) {
   container.addEventListener('tab-container-change', async event => {
-    if (!event.detail.relatedTarget.classList.contains('js-preview-panel')) return
-
-    const previewContainer = event.detail.relatedTarget.querySelector('.js-preview-body');
+    const previewContainer = event.detail.relatedTarget
+    if (!previewContainer.classList.contains('js-preview-panel')) return
 
     const text = container.querySelector('[name="comment[body]"]').value;
     const url = container.getAttribute('data-preview-url')

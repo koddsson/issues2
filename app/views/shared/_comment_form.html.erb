@@ -138,107 +138,37 @@
     <div class="border-0 border-md timeline-comment timeline-comment--caret">
       <form class="js-new-comment-form js-needs-timeline-marker-header" action="<%= comments_path(params[:user], params[:repo], params[:number]) %>" accept-charset="UTF-8" method="post">
         <fieldset class="min-width-0">
-          <%= render(Primer::TabContainerComponent.new(
-            classes: "js-previewable-comment-form previewable-comment-form write-selected",
-            "data-preview-url": "/preview"
-          )) do %>
-            <div class="comment-form-head tabnav d-flex flex-justify-between mb-2 p-0 tabnav--responsive flex-column border-bottom-0 mb-0 mb-lg-2 flex-items-stretch border-lg-bottom color-border-default flex-lg-items-center flex-lg-row">
-              <div class="tabnav-tabs mx-0 mx-md-2 mt-0 mt-md-2 no-wrap d-flex flex-auto d-md-block" role="tablist">
-                <button type="button" class="btn-link tabnav-tab write-tab js-write-tab px-3 px-sm-6 px-md-3 flex-1 flex-md-auto" role="tab" aria-selected="true" tabindex="0">
-                  Write
-                </button>
-                <button type="button" class="btn-link tabnav-tab preview-tab js-preview-tab flex-1 flex-md-auto" role="tab" aria-selected="false" tabindex="-1">
-                  Preview
-                </button>
-              </div>
-              <%= render partial: "shared/markdown_toolbar" %>
-            </div>
+          <%= render(Primer::Alpha::TabPanels.new(
+            label: "Comment Form",
+            classes: "write-selected comment-form-head", wrapper_arguments: {
+              classes: "js-previewable-comment-form previewable-comment-form",
+              "data-preview-url": "/preview"
+            },
+          )) do |component| %>
+            <% component.tab(id: "write-comment", selected: true) do |t| %>
+              <% t.text { "Write" } %>
+              <% t.panel do %>
+                <div class="js-write-bucket hide-reaction-suggestion upload-enabled mx-0 mt-2 mb-2 mx-md-2 hx_sm-hide-drag-drop js-reaction-suggestion" data-reaction-markup="Would you like to leave a reaction instead?">
+                  <textarea name="comment[body]" placeholder="Leave a comment" aria-label="Comment body"class="form-control input-contrast comment-form-textarea" required></textarea>
 
-            <div class="comment-form-error js-comment-form-error" role="alert" hidden>
-              There was an error creating your Issue.
-            </div>
-
-            <file-attachment class="js-upload-markdown-image is-default" input="fc-new_comment_field" role="tabpanel" data-tab-container-no-tabstop="true" data-upload-repository-id="11969507" data-upload-policy-url="/upload/policies/assets"><input type="hidden" value="bY59wErMP5Rd8sqNKaFzJyZ/B2zplLAx9hbcprd6rv/IWLva2uQogEiSj2nSgzCkd1xbfF64vNDZFKLTRbH2Pw==" data-csrf="true" class="js-data-upload-policy-url-csrf">
-              <div class="write-content js-write-bucket hide-reaction-suggestion upload-enabled mx-0 mt-2 mb-2 mx-md-2 hx_sm-hide-drag-drop js-reaction-suggestion" data-reaction-markup="Would you like to leave a reaction instead?">
-                <text-expander keys=": @ #" data-issue-url="/suggestions/issue/1056999977?issue_suggester=1&amp;repository=html&amp;user_id=whatwg" data-mention-url="/suggestions/issue/1056999977?mention_suggester=1&amp;repository=html&amp;user_id=whatwg" multiword="#" data-emoji-url="/autocomplete/emoji">
-                    <textarea name="comment[body]" placeholder="Leave a comment" aria-label="Comment body"class="form-control input-contrast comment-form-textarea" required></textarea>
-                  </text-expander>
-
-                <label class="text-normal drag-and-drop hx_drag-and-drop position-relative d-flex flex-justify-between" data-dashlane-label="true">
-                  <input accept=".gif,.jpeg,.jpg,.mov,.mp4,.png,.csv,.docx,.fodg,.fodp,.fods,.fodt,.gz,.log,.md,.odf,.odg,.odp,.ods,.odt,.pdf,.pptx,.txt,.xls,.xlsx,.zip" type="file" multiple="" class="manual-file-chooser manual-file-chooser-transparent top-0 right-0 bottom-0 left-0 width-full ml-0 form-control rounded-top-0" id="fc-new_comment_field" data-dashlane-rid="c919879fd3f50b69" data-form-type="">
-                  <span class="color-bg-subtle position-absolute top-0 left-0 rounded-bottom-2 width-full height-full" style="pointer-events: none;"></span>
-                  <span class="position-relative pr-2" style="pointer-events: none;">
-                    <span class="default">
-                      Attach files by dragging &amp; dropping, selecting or pasting them.
-                    </span>
-                    <span class="loading">
-                      <span role="status">
-                        <span class="sr-only">Loading</span>
-                          <svg style="box-sizing: content-box; color: var(--color-icon-primary);" width="16" height="16" viewBox="0 0 16 16" fill="none" data-view-component="true" class="v-align-text-bottom mr-1 anim-rotate">
-                            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-opacity="0.25" stroke-width="2" vector-effect="non-scaling-stroke"></circle>
-                            <path d="M15 8a7.002 7.002 0 00-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
-                          </svg>
-                        </span>
-                        <span class="js-file-upload-loading-text" data-file-upload-message="Uploading your files…">
-                          Uploading your files…
-                        </span>
-                    </span>
-                    <span class="error bad-file">
-                      We don’t support that file type.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again</span> with a
-                        GIF, JPEG, JPG, MOV, MP4, PNG, CSV, DOCX, FODG, FODP, FODS, FODT, GZ, LOG, MD, ODF, ODG, ODP, ODS, ODT, PDF, PPTX, TXT, XLS, XLSX or ZIP.
-                      </span>
-                    </span>
-                    <span class="error bad-permissions">
-                      Attaching documents requires write permission to this repository.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again</span> with a GIF, JPEG, JPG, MOV, MP4, PNG, CSV, DOCX, FODG, FODP, FODS, FODT, GZ, LOG, MD, ODF, ODG, ODP, ODS, ODT, PDF, PPTX, TXT, XLS, XLSX or ZIP.
-                      </span>
-                    </span>
-                    <span class="error repository-required">
-                      We don’t support that file type.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again</span> with a GIF, JPEG, JPG, MOV, MP4, PNG, CSV, DOCX, FODG, FODP, FODS, FODT, GZ, LOG, MD, ODF, ODG, ODP, ODS, ODT, PDF, PPTX, TXT, XLS, XLSX or ZIP.
-                      </span>
-                    </span>
-                    <span class="error too-big js-upload-too-big">
-                    </span>
-                    <span class="error empty">
-                      This file is empty.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again</span> with a file that’s not empty.
-                      </span>
-                    </span>
-                    <span class="error hidden-file">
-                      This file is hidden.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again</span> with another file.
-                      </span>
-                    </span>
-                    <span class="error failed-request">
-                      Something went really wrong, and we can’t process that file.
-                      <span class="drag-and-drop-error-info">
-                        <span class="btn-link">Try again.</span>
-                      </span>
-                    </span>
-                  </span>
-                  <span>
-                    <a class="Link--muted position-relative d-inline" href="https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank">
+                  <label class="text-normal drag-and-drop hx_drag-and-drop position-relative d-flex flex-justify-between" data-dashlane-label="true">
+                    <a class="Link--muted text-right flex-1 position-relative d-inline" href="https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax" target="_blank">
                       <%= render Primer::OcticonComponent.new(:markdown, size: :small, classes: 'v-align-bottom') %>
                     </a>
-                  </span>
-                </label>
-              </div>
-            </file-attachment>
-            <div role="tabpanel" class="js-preview-panel overflow-auto border-bottom mx-0 my-3 mx-md-2 mb-md-2" hidden>
-              <div class="comment js-suggested-changes-container">
-                <div class="comment-body markdown-body js-preview-body" style="min-height: 131px;">
-                  <p>Nothing to preview</p>
+                  </label>
                 </div>
-              </div>
-            </div>
-            <div class="comment-form-error mb-2 js-comment-update-error" hidden></div>
+              <% end %>
+            <% end %>
+            <% component.tab(id: "preview-comment") do |t| %>
+              <% t.text { "Preview" } %>
+              <% t.panel(classes: "js-preview-panel overflow-auto border-bottom mx-0 my-3 mx-md-2 mb-md-2 comment-body markdown-body js-preview-body", style: "min-height: 131px;") do %>
+                <p>Nothing to preview</p>
+              <% end %>
+            <% end %>
+
+            <% component.extra do %>
+              <%= render partial: "shared/markdown_toolbar" %>
+            <% end %>
           <% end %>
         </fieldset>
         <div class="form-actions m-0 mx-md-2 my-md-2 p-0">
