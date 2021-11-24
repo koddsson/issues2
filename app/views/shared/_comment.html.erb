@@ -22,17 +22,15 @@
         </h3>
       </div>
 
-      <task-lists disabled="" sortable="">
-        <table class="d-block" data-paste-markdown-skip="">
-          <tbody class="d-block">
-            <tr class="d-block">
-              <td class="d-block comment-body markdown-body">
-                <%= (comment.body_html || "<i>No description provided</i>").html_safe %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </task-lists>
+      <table class="d-block" data-paste-markdown-skip="">
+        <tbody class="d-block">
+          <tr class="d-block">
+            <td class="d-block comment-body markdown-body">
+              <%= (comment.body_html || "<i>No description provided</i>").html_safe %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
