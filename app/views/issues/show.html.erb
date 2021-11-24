@@ -1,3 +1,7 @@
+<% content_for :title do %>
+<%= @issue.title %> • Issue #<%= @issue.number %> • <%= params[:user] %>/<%= params[:repo] %>
+<% end %>
+
 <% content_for :header do %>
   <div class="Header-item Header-item--full min-width-0">
     <nav aria-label="Breadcrumb" class="width-fit">
