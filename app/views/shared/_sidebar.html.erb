@@ -66,9 +66,26 @@
       Assignees
     </div>
 
-    <span class="css-truncate js-issue-assignees">
-      No one assigned
-    </span>
+    <% if @issue.assignees.empty? %>
+      <span class="css-truncate js-issue-assignees">
+        No one assigned
+      </span>
+    <% else %>
+      <% @issue.assignees.each do |assignee| %>
+        <span class="css-truncate js-issue-assignees">
+          <p>
+          <span class="d-flex min-width-0 flex-1">
+            <a class="no-underline" href="/<%= assignee.login %>">
+              <img class="avatar mr-1 avatar-user" src="<%= assignee.avatar_url %>" width="20" height="20" alt="@<%= assignee.login %>">
+            </a>
+            <a class="assignee Link--primary css-truncate-target width-fit" href="/<%= assignee.login %>">
+              <span class="css-truncate-target width-fit v-align-middle"><%= assignee.login %></span>
+            </a>
+          </span>
+          </p>
+        </span> 
+      <% end %>
+    <% end %>
   </form>
 </div>
 <div class="discussion-sidebar-item js-discussion-sidebar-item">
