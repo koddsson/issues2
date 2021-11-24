@@ -15,7 +15,7 @@
           </strong>
           commented
           <a class="Link--secondary js-timestamp">
-            <relative-time datetime="2021-11-15T09:02:44Z" class="no-wrap" title="15 Nov 2021, 09:02 GMT">
+            <relative-time datetime="<%= comment.created_at %>" class="no-wrap" title="15 Nov 2021, 09:02 GMT">
               <%= time_ago_in_words(comment.created_at) %> ago
             </relative-time>
           </a>
