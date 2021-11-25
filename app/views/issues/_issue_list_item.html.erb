@@ -10,6 +10,13 @@
       <a class="Link--primary v-align-middle no-underline h4 markdown-title" href="<%= issue_path(params[:user], params[:repo], issue.number) %>">
         <%= issue.title %>
       </a>
+      <% issue.labels.each do |label| %>
+        <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues?q=is%3Aissue+is%3Aopen+label%3Aaddition%2Fproposal">
+          <%# NOTE: Not using the `label.color` since the LabelComponent
+            doesn't support arbitrary colors %>
+          <%= render(Primer::LabelComponent.new) { label.name } %>
+        </a>
+      <% end %>
       <%#
           <span class="labels lh-default d-block d-md-inline">
       <a href="/whatwg/html/issues?q=is%3Aissue+is%3Aopen+label%3A%22topic%3A+canvas%22" data-name="topic: canvas" style="--label-r:0;--label-g:152;--label-b:0;--label-h:120;--label-s:100;--label-l:29;" data-view-component="true" class="IssueLabel hx_IssueLabel">
@@ -29,13 +36,22 @@
     </div>
 
     <div class="flex-shrink-0 col-3 pt-2 text-right pr-3 no-wrap d-flex hide-sm ">
+      <%# These two spans are here to properly align the last two spans %>
+      <span class="ml-2 flex-1 flex-shrink-0"></span>
+      <span class="ml-2 flex-1 flex-shrink-0"></span>
       <span class="ml-2 flex-1 flex-shrink-0">
-        <div class="AvatarStack AvatarStack--right ml-2 flex-1 flex-shrink-0 ">
-          <div class="AvatarStack-body tooltipped tooltipped-sw tooltipped-multiline tooltipped-align-right-1 mt-1" aria-label="Assigned to ">
-          </div>
-        </div>
+        <%= render(Primer::Beta::AvatarStack.new) do |c| %>
+          <% issue.assignees.each do |assignee| %>
+            <% c.avatar(src: assignee.avatar_url, alt: assignee.login) %>
+          <% end %>
+        <% end  %>
+      </span>
+      <span class="ml-2 flex-1 flex-shrink-0">
+        <a href="/whatwg/html/issues/7367" class="Link--muted" aria-label="1 comment">
+          <%= render(Primer::OcticonComponent.new(:"comment", classes: "v-align-middle")) %>
+          <span class="text-small text-bold">1</span>
+        </a>
       </span>
     </div>
-    <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0" aria-label="Link to Issue. <%= issue.title %>" href="https://github.com/whatwg/html/issues/<%= issue.number %>"></a>
   </div>
 </div>
