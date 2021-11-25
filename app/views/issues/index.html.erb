@@ -1,5 +1,5 @@
 <% content_for :title do %>
-Issues • <%= params[:user] %>/<%= params[:repo] %>
+  Issues • <%= params[:user] %>/<%= params[:repo] %>
 <% end %>
 
 <% content_for :header do %>
@@ -24,6 +24,12 @@ Issues • <%= params[:user] %>/<%= params[:repo] %>
   </div>
 <% end %>
 
+<style>
+.Box-row:first-of-type {
+  border-top: 0;
+}
+</style>
+
 <div class="clearfix new-discussion-timeline container-xl px-3 px-md-4 px-lg-5">
   <div class="mt-3">
     <%= render 'shared/issues_search' %>
@@ -31,51 +37,25 @@ Issues • <%= params[:user] %>/<%= params[:repo] %>
   <div class="Box mt-3 Box--responsive hx_Box--firstRowRounded0">
     <div aria-label="Issues" role="group">
       <% @issues.each do |issue| %>
-        <%# Setting pulls: false in the API client seems to not filter out pull
-          requests so we need to skip them from the response %>
-        <% next if issue.pull_request %>
-
-      <div id="issue_7329" class="Box-row Box-row--focus-gray p-0 mt-0 js-navigation-item js-issue-row navigation-focus" data-id="1052312922" data-pjax="#repo-content-pjax-container">
-        <div class="d-flex Box-row--drag-hide position-relative">
-          <div class="flex-shrink-0 pt-2 pl-3">
-            <span class="tooltipped tooltipped-e" aria-label="Open issue">
-              <%= render(Primer::OcticonComponent.new(:"issue-opened", color: :success)) %>
-            </span>
-          </div>
-  
-          <div class="flex-auto min-width-0 p-2 pr-3 pr-md-2">
-            <a class="Link--primary v-align-middle no-underline h4 markdown-title" href="<%= issue_path(params[:user], params[:repo], issue.number) %>">
-              <%= issue.title %>
-            </a>
-            <%#
-            <span class="labels lh-default d-block d-md-inline">
-              <a href="/whatwg/html/issues?q=is%3Aissue+is%3Aopen+label%3A%22topic%3A+canvas%22" data-name="topic: canvas" style="--label-r:0;--label-g:152;--label-b:0;--label-h:120;--label-s:100;--label-l:29;" data-view-component="true" class="IssueLabel hx_IssueLabel">
-                topic: canvas
-              </a>
-            </span>
-            #%>
-              <div class="d-flex mt-1 text-small color-fg-muted">
-                <span class="opened-by">
-                  #<%= issue.number %>
-                opened <relative-time datetime="<%= issue.created_at %>" class="no-wrap" title="12 Nov 2021, 18:53 GMT">
-                  <%= time_ago_in_words(issue.created_at) %> ago </relative-time> by
-                  <a class="Link--muted" title="Open issues created by <%= issue.user.login %>" href="https://github.com/whatwg/html/issues?q=is%3Aissue+is%3Aopen+author%3A<%= issue.user.login %>"><%= issue.user.login %></a>
-  
-                </span>
-              </div>
-          </div>
-  
-          <div class="flex-shrink-0 col-3 pt-2 text-right pr-3 no-wrap d-flex hide-sm ">
-            <span class="ml-2 flex-1 flex-shrink-0">
-              <div class="AvatarStack AvatarStack--right ml-2 flex-1 flex-shrink-0 ">
-                <div class="AvatarStack-body tooltipped tooltipped-sw tooltipped-multiline tooltipped-align-right-1 mt-1" aria-label="Assigned to ">
-                </div>
-              </div>
-            </span>
-          </div>
-          <a class="d-block d-md-none position-absolute top-0 bottom-0 left-0 right-0" aria-label="Link to Issue. <%= issue.title %>" href="https://github.com/whatwg/html/issues/<%= issue.number %>"></a>
-        </div>
-      </div>
+        <%= render partial: "issues/issue_list_item", locals: { issue: issue } %>
+        <% end.empty? and begin %>
+        <% if params[:query].present? %>
+          <%= render Primer::Beta::Blankslate.new do |c| %>
+            <% c.visual_icon(icon: :"issue-opened") %>
+            <% c.heading(tag: :h2).with_content("No results matched your search.") %>
+            <% c.description do %>
+              <p>You could search <a href="https://github.com/search">all of GitHub</a> or try an <a href="https://github.com/search/advanced">advanced search</a>.</p>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= render Primer::Beta::Blankslate.new do |c| %>
+            <% c.visual_icon(icon: :"issue-opened") %>
+            <% c.heading(tag: :h2).with_content("There aren’t any open issues.") %>
+            <% c.description do %>
+              <p>You could search <a href="https://github.com/search">all of GitHub</a> or try an <a href="https://github.com/search/advanced">advanced search</a>.</p>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>
