@@ -1,24 +1,9 @@
-# README
+# issues2
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A experiment in implementing GitHub Issues in [Ruby on Rails](https://rubyonrails.org/).
 
-Things you may want to cover:
+I'm not trying to implement everything that GitHub issues offers but focusing on application performance and developer experience.
 
-* Ruby version
+I've implemented the issues list, issues search and viewing a single issue. The scope of the experiment doesn't go beyond these pages.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The project leverages [Primer ViewComponents](https://primer.style/view-components) in addition to rails to render UI.
