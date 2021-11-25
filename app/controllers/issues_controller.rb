@@ -2,7 +2,9 @@ require 'octokit'
 
 class IssuesController < ApplicationController
   def index
-    @issues = client.issues("#{params[:user]}/#{params[:repo]}", {state: "open"})
+    query = "#{params[:query] || ''} is:issue is:open repo:#{params[:user]}/#{params[:repo]}"
+    results = client.search_issues(query, accept: 'application/vnd.github.v3+json')
+    @issues = results.items
   end
 
   def show
