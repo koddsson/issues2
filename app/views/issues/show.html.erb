@@ -78,6 +78,32 @@
     <% component.main do %>
       <div class="ml-0 pl-0 ml-md-6 pl-md-3">
         <%= render partial: 'shared/comment', locals: {comment: @issue, classes: 'pt-0'} %>
+        <% @timeline.filter {|item| item.event == "labeled" }.each do |timeline_item| %>
+          <div class="TimelineItem" id="1">
+            <a href="#1" class="TimelineItem-badge">
+              <% if timeline_item.event == "labeled" %>
+                <%= render(Primer::OcticonComponent.new(:tag)) %>
+              <% else %>
+                <%= render(Primer::OcticonComponent.new(:flame)) %>
+              <% end %>
+            </a>
+          
+            <div class="TimelineItem-body">
+              <a class="d-inline-block" href="https://github.com/<%= timeline_item.actor.login %>">
+                <%= render(Primer::Beta::Avatar.new(src: timeline_item.actor.avatar_url, alt: "@#{timeline_item.actor.login}", size: 20)) %>
+              </a>
+              <a href="#" class="text-bold Link--primary mr-1"><%= timeline_item.actor.login %></a> 
+              <% if timeline_item.event == "labeled" %>
+                added the <%= render partial: "shared/label", locals: {label: timeline_item.label} %> label
+              <% end %>
+              <a href="#1" class="Link--secondary">
+                <relative-time datetime="<%= @issue.created_at %>">
+                  <%= time_ago_in_words(timeline_item.created_at) %>
+                </relative-time>
+              </a>
+            </div>
+          </div>
+        <% end %>
         <% @comments.each do |comment| %>
           <%= render partial: 'shared/comment', locals: {comment: comment, classes: ''} %>
         <% end %>
