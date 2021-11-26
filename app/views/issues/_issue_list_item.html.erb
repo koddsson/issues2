@@ -17,22 +17,15 @@
           <%= render(Primer::LabelComponent.new) { label.name } %>
         </a>
       <% end %>
-      <%#
-          <span class="labels lh-default d-block d-md-inline">
-      <a href="/whatwg/html/issues?q=is%3Aissue+is%3Aopen+label%3A%22topic%3A+canvas%22" data-name="topic: canvas" style="--label-r:0;--label-g:152;--label-b:0;--label-h:120;--label-s:100;--label-l:29;" data-view-component="true" class="IssueLabel hx_IssueLabel">
-      topic: canvas
-      </a>
-      </span>
-      #%>
-    <div class="d-flex mt-1 text-small color-fg-muted">
-      <span class="opened-by">
-        #<%= issue.number %>
-      opened <relative-time datetime="<%= issue.created_at %>" class="no-wrap" title="12 Nov 2021, 18:53 GMT">
-        <%= time_ago_in_words(issue.created_at) %> ago </relative-time> by
-      <a class="Link--muted" title="Open issues created by <%= issue.user.login %>" href="https://github.com/whatwg/html/issues?q=is%3Aissue+is%3Aopen+author%3A<%= issue.user.login %>"><%= issue.user.login %></a>
+      <div class="d-flex mt-1 text-small color-fg-muted">
+        <span class="opened-by">
+          #<%= issue.number %>
+        opened <relative-time datetime="<%= issue.created_at %>" class="no-wrap" title="12 Nov 2021, 18:53 GMT">
+          <%= time_ago_in_words(issue.created_at) %> ago </relative-time> by
+        <a class="Link--muted" title="Open issues created by <%= issue.user.login %>" href="https://github.com/whatwg/html/issues?q=is%3Aissue+is%3Aopen+author%3A<%= issue.user.login %>"><%= issue.user.login %></a>
 
-      </span>
-    </div>
+        </span>
+      </div>
     </div>
 
     <div class="flex-shrink-0 col-3 pt-2 text-right pr-3 no-wrap d-flex hide-sm ">
@@ -44,13 +37,15 @@
           <% issue.assignees.each do |assignee| %>
             <% c.avatar(src: assignee.avatar_url, alt: assignee.login) %>
           <% end %>
-        <% end  %>
+        <% end %>
       </span>
       <span class="ml-2 flex-1 flex-shrink-0">
-        <a href="/whatwg/html/issues/7367" class="Link--muted" aria-label="1 comment">
-          <%= render(Primer::OcticonComponent.new(:"comment", classes: "v-align-middle")) %>
-          <span class="text-small text-bold">1</span>
-        </a>
+        <% if issue.comments > 0 %>
+          <a href="/whatwg/html/issues/7367" class="Link--muted" aria-label="1 comment">
+            <%= render(Primer::OcticonComponent.new(:"comment", classes: "v-align-middle")) %>
+            <span class="text-small text-bold"><%= issue.comments %></span>
+          </a>
+        <% end %>
       </span>
     </div>
   </div>
