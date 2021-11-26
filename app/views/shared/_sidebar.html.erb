@@ -143,13 +143,16 @@
 
 <div id="partial-users-participants" class="discussion-sidebar-item">
   <div class="participation">
+    <% participants = @timeline.filter {|event| event.event == "commented" }.map {|event| event.user }.uniq {|user| user.login} %>
     <div class="discussion-sidebar-heading text-bold">
-      1 participants
+      <%= pluralize(participants.size, 'participant') %>
     </div>
     <div class="participation-avatars d-flex flex-wrap">
-      <a class="participant-avatar" href="https://github.com/<%= issue.user.login %>">
-        <%= render(Primer::Beta::Avatar.new(src: issue.user.avatar_url, alt: "@#{@issue.user.login}", size: 24)) %>
-      </a>
+      <% participants.map do |user| %>
+        <a class="participant-avatar" href="https://github.com/<%= user.login %>">
+          <%= render(Primer::Beta::Avatar.new(src: user.avatar_url, alt: "@#{user.login}", size: 24)) %>
+        </a>
+      <% end %>
     </div>
   </div>
 </div>
