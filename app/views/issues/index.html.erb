@@ -35,28 +35,6 @@
     <%= render 'shared/issues_search' %>
   </div>
   <div class="Box mt-3 Box--responsive hx_Box--firstRowRounded0">
-    <div aria-label="Issues" role="group">
-      <% @issues.each do |issue| %>
-        <%= render partial: "issues/issue_list_item", locals: { issue: issue } %>
-        <% end.empty? and begin %>
-        <% if params[:query].present? %>
-          <%= render Primer::Beta::Blankslate.new do |c| %>
-            <% c.visual_icon(icon: :"issue-opened") %>
-            <% c.heading(tag: :h2).with_content("No results matched your search.") %>
-            <% c.description do %>
-              <p>You could search <a href="https://github.com/search">all of GitHub</a> or try an <a href="https://github.com/search/advanced">advanced search</a>.</p>
-            <% end %>
-          <% end %>
-        <% else %>
-          <%= render Primer::Beta::Blankslate.new do |c| %>
-            <% c.visual_icon(icon: :"issue-opened") %>
-            <% c.heading(tag: :h2).with_content("There aren’t any open issues.") %>
-            <% c.description do %>
-              <p>You could search <a href="https://github.com/search">all of GitHub</a> or try an <a href="https://github.com/search/advanced">advanced search</a>.</p>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render partial: 'issues/list', locals: { issues: @issues } %>
   </div>
 </div>
