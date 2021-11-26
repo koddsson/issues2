@@ -3,7 +3,8 @@ require 'octokit'
 class IssuesController < ApplicationController
   def index
     query = "#{params[:query] || ''} is:issue is:open repo:#{params[:user]}/#{params[:repo]}"
-    results = client.search_issues(query, accept: 'application/vnd.github.v3+json')
+    results = client.search_issues(query, accept: 'application/vnd.github.v3+json', page: params[:page])
+    @total_count = results.total_count
     @issues = results.items
   end
 

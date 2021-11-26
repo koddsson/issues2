@@ -25,12 +25,15 @@
 <% end %>
 
 <div class="clearfix new-discussion-timeline container-xl px-3 px-md-4 px-lg-5">
+  <turbo-frame id="issues-list" data-turbo-action="replace">
     <div class="mt-3">
       <%= render 'shared/issues_search' %>
     </div>
     <div class="Box mt-3 Box--responsive hx_Box--firstRowRounded0">
-      <turbo-frame id="issues-list" data-turbo-action="replace">
-        <%= render partial: 'issues/list', locals: { issues: @issues } %>
-      </turbo-frame>
+      <%= render partial: 'issues/list', locals: { issues: @issues } %>
     </div>
+    <div class="mt-3 d-flex flex-justify-center">
+      <%= render partial: "issues/paginator", locals: { issues: @issues, total_count: @total_count } %>
+    </div>
+  </turbo-frame>
 </div>

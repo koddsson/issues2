@@ -1,0 +1,38 @@
+<%
+    on_each_page = 30
+    page = (params[:page] || "1").to_i
+    is_on_first_page = page == 1
+    is_on_last_page = page == total_count / on_each_page
+  %>
+
+<div>
+  <% if is_on_first_page %>
+    <%= render(Primer::ButtonComponent.new(disabled: true, "aria-label": "Previous page")) do |c| %>
+      <% c.icon(icon: :"chevron-left") %>
+      Previous page
+    <% end %>
+  <% else %>
+    <a href="<%= issues_path(params[:user], params[:repo], query: params[:query], page: page - 1) %>">
+      <%= render(Primer::ButtonComponent.new("aria-label": "Previous page")) do |c| %>
+        <% c.icon(icon: :"chevron-left") %>
+        Previous page
+      <% end %>
+    </a>
+  <% end %>
+</div>
+
+<div class="ml-1">
+  <% if is_on_last_page %>
+    <%= render(Primer::ButtonComponent.new(disabled: true, "aria-label": "Next page")) do |c| %>
+      Next page
+      <%= render(Primer::OcticonComponent.new(:"chevron-right")) %>
+    <% end %>
+  <% else %>
+    <a href="<%= issues_path(params[:user], params[:repo], query: params[:query], page: page + 1) %>">
+      <%= render(Primer::ButtonComponent.new("aria-label": "Next page")) do |c| %>
+        Next page
+        <%= render(Primer::OcticonComponent.new(:"chevron-right")) %>
+      <% end %>
+    </a>
+  <% end %>
+</div>
