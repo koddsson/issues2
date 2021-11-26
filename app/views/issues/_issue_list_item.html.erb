@@ -11,19 +11,7 @@
         <%= issue.title %>
       </a>
       <% issue.labels.each do |label| %>
-        <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues?query=<%= params[:query] + "+" if params[:query] %>label:<%= label.name %>">
-          <%# NOTE: Not using the `label.color` since the LabelComponent
-            doesn't support arbitrary colors %>
-          <% 
-            rgbval = label.color.hex
-            r = rgbval >> 16
-            g = (rgbval & 65280) >> 8
-            b = rgbval & 255
-            brightness = r*0.299 + g*0.587 + b*0.114
-            foreground = (brightness > 160) ? "var(--color-fg-default)" : "var(--color-fg-on-emphasis)"
-          %>
-          <%= render(Primer::LabelComponent.new(style: "background-color: ##{label.color} !important; border: unset; color: #{foreground};")) { label.name } %>
-        </a>
+        <%= render partial: "shared/label", locals: {label: label} %>
       <% end %>
       <div class="d-flex mt-1 text-small color-fg-muted">
         <span class="opened-by">
