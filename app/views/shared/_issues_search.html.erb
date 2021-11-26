@@ -1,6 +1,6 @@
 <div class="d-flex flex-justify-between mb-md-3 flex-column-reverse flex-md-row flex-items-end">
   <div class="d-flex flex-justify-start flex-auto width-full my-4 my-md-0" role="search">
-    <form class="position-relative width-full" role="search" aria-label="Issues" action="<%= issues_path(params[:user], params[:repo]) %>" accept-charset="UTF-8" method="get">
+    <form class="position-relative width-full" role="search" aria-label="Issues" action="<%= issues_path(params[:user], params[:repo]) %>" accept-charset="UTF-8" method="get" data-turbo-action="replace" data-turbo-frame="issues-list">
       <input type="text" name="query" value="<%= params[:query] %>" class="form-control form-control subnav-search-input input-contrast width-full" placeholder="Search all issues" aria-label="Search issues in <%= params[:user] %>/<%= params[:repo] %>">
       <%= render(Primer::OcticonComponent.new(:search, classes: 'octicon octicon-search subnav-search-icon')) %>
     </form>

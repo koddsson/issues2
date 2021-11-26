@@ -1,4 +1,4 @@
-<div id="issue_7329" class="Box-row Box-row--focus-gray p-0 mt-0 js-navigation-item js-issue-row navigation-focus" data-id="1052312922" data-pjax="#repo-content-pjax-container">
+<div class="Box-row Box-row--focus-gray p-0 mt-0">
   <div class="d-flex Box-row--drag-hide position-relative">
     <div class="flex-shrink-0 pt-2 pl-3">
       <span class="tooltipped tooltipped-e" aria-label="Open issue">
@@ -7,11 +7,11 @@
     </div>
 
     <div class="flex-auto min-width-0 p-2 pr-3 pr-md-2">
-      <a class="Link--primary v-align-middle no-underline h4 markdown-title" href="<%= issue_path(params[:user], params[:repo], issue.number) %>">
+      <a class="Link--primary v-align-middle no-underline h4 markdown-title" href="<%= issue_path(params[:user], params[:repo], issue.number) %>" data-turbo-frame="_top">
         <%= issue.title %>
       </a>
       <% issue.labels.each do |label| %>
-        <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues?q=is%3Aissue+is%3Aopen+label%3Aaddition%2Fproposal">
+        <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues?query=<%= params[:query] + "+" if params[:query] %>label:<%= label.name %>">
           <%# NOTE: Not using the `label.color` since the LabelComponent
             doesn't support arbitrary colors %>
           <%= render(Primer::LabelComponent.new) { label.name } %>
@@ -41,7 +41,7 @@
       </span>
       <span class="ml-2 flex-1 flex-shrink-0">
         <% if issue.comments > 0 %>
-          <a href="/whatwg/html/issues/7367" class="Link--muted" aria-label="1 comment">
+          <a href="/<%= params[:user] %>/<%= params[:repo] %>/issues/<%= issue.number %>" class="Link--muted" aria-label="<%= pluralize(issue.comments, "comments") %>" data-turbo-frame="_top">
             <%= render(Primer::OcticonComponent.new(:"comment", classes: "v-align-middle")) %>
             <span class="text-small text-bold"><%= issue.comments %></span>
           </a>
