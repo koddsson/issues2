@@ -1,4 +1,4 @@
-<div aria-label="Issues" role="group" id="issues-list">
+<div aria-label="Issues" role="group">
   <% issues.each do |issue| %>
     <%= render partial: "issues/issue_list_item", locals: { issue: issue } %>
     <% end.empty? and begin %>
