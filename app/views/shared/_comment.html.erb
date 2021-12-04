@@ -31,6 +31,81 @@
           </tr>
         </tbody>
       </table>
+
+      <% reactions = comment.reactions.attrs.except(:url, :total_count) %>
+      <% total_reactions = reactions.values.reduce(:+) %>
+
+      <% if total_reactions > 0 %>
+        <div class="social-reaction-summary-container">
+          <div class="comment-reactions d-flex has-reactions flex-items-start flex-row-reverse flex-justify-end social-reactions">
+            <form action="/<%= params[:user] %>/<%= params[:repo] %>/reactions" accept-charset="UTF-8" method="post">
+              <div class="comment-reactions-options">
+                <% reactions.each do |emoji, count| %>
+                  <% next if count == 0 %>
+                  <button class="btn-link d-flex flex-items-baseline social-reaction-summary-item ml-2 float-left reaction-summary-item mb-0 no-underline"
+                    style="border-radius:100px;font-size:12px;"
+                    name="input[content]"
+                    type="submit"
+                    value="<%= emoji %> unreact">
+
+                    <%= key_to_emoji(emoji) %>
+                    <span><%= count %></span>
+                  </button>
+                <% end %>
+              </div>
+            </form>
+            <details class="dropdown details-overlay details-reset d-inline-block new-reactions-dropdown reactions-menu js-reaction-popover-container js-comment-header-reaction-button">
+              <summary aria-label="Add your reaction" aria-haspopup="true" class="circle new-reactions-summary-item add-reaction-btn btn-sm Link--secondary discussion-add-reaction-button btn-invisible btn p-0 color-bg-subtle m-0 border color-border-muted text-center">
+                <%= render(Primer::OcticonComponent.new(:smiley, classes: "social-button-emoji")) %>
+              </summary>
+              <form action="/<%= params[:user] %>/<%= params[:repo] %>/reactions" method="post">
+                <ul class="dropdown-menu mt-2 d-flex mb-2 anim-scale-in dropdown-menu-reactions dropdown-menu-ne" role="menu">
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="THUMBS_UP unreact" aria-label="Undo thumbs up reaction" data-reaction-label="+1" data-reaction-conent="+1" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn color-bg-info text-center">
+                      👍
+                    </button>        
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="THUMBS_DOWN react" aria-label="thumbs down" data-reaction-label="-1" data-reaction-conent="-1" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      👎
+                    </button>        
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="LAUGH react" aria-label="laugh" data-reaction-label="Laugh" data-reaction-conent="smile" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      😄
+                    </button>        
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="HOORAY react" aria-label="hooray" data-reaction-label="Hooray" data-reaction-conent="tada" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      🎉
+                    </button>        
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="CONFUSED react" aria-label="confused" data-reaction-label="Confused" data-reaction-conent="thinking_face" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      😕
+                    </button>       
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="HEART react" aria-label="heart" data-reaction-label="Heart" data-reaction-conent="heart" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      ❤️
+                    </button>      
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="ROCKET unreact" aria-label="Undo rocket reaction" data-reaction-label="Rocket" data-reaction-conent="rocket" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn color-bg-info text-center">
+                      🚀
+                    </button>      
+                  </li>
+                  <li role="presentation">
+                    <button role="menuitem" name="input[content]" value="EYES react" aria-label="eyes" data-reaction-label="Eyes" data-reaction-conent="eyes" type="submit" class="dropdown-item dropdown-item-reaction btn btn-invisible btn-invisible-hover rounded-2 btn-invisible btn text-center">
+                      👀
+                    </button>      
+                  </li>
+                </ul>
+              </form>
+            </details>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
