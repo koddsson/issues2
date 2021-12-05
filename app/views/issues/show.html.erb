@@ -62,8 +62,8 @@
           <%= @issue.user.login %>
         </a> opened this issue
         <relative-time datetime="<%= @issue.created_at %>" class="no-wrap" title="15 Nov 2021, 04:49 GMT">
-          <%= time_ago_in_words(@issue.created_at) %>
-        </relative-time> ago
+          <%= time_ago_in_words(@issue.created_at) %> ago
+        </relative-time>
         · <%= pluralize(@issue.comments, 'comment') %>
       </div>
     </div>
