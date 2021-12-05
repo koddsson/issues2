@@ -68,7 +68,7 @@
       </div>
     </div>
   </div>
-  <%= render(Primer::LayoutComponent.new) do |component| %>
+  <%= render(Primer::LayoutComponent.new(responsive: true)) do |component| %>
     <% component.sidebar do %>
       <%= render partial: "shared/sidebar", locals: {issue: @issue} %>
     <% end %>
