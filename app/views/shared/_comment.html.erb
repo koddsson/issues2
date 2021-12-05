@@ -9,7 +9,7 @@
     <div class="ml-n3 timeline-comment unminimized-comment comment previewable-edit js-task-list-container js-comment timeline-comment--caret reorderable-task-lists">
       <div class="timeline-comment-header clearfix d-block d-sm-flex">
         <h3 class="timeline-comment-header-text f5 text-normal">
-          <a class="d-inline-block d-md-none" data-hovercard-type="user" data-hovercard-url="/users/<%= comment.user.login %>/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/<%= comment.user.login %>"><img class="avatar rounded-1 avatar-user" height="20" width="20" alt="@<%= comment.user.login %>" src="https://avatars.githubusercontent.com/u/1544111?s=60&amp;v=4"></a>
+          <a class="d-inline-block d-md-none" data-hovercard-type="user" data-hovercard-url="/users/<%= comment.user.login %>/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/<%= comment.user.login %>"><img class="avatar rounded-1 avatar-user" height="20" width="20" alt="@<%= comment.user.login %>" src="<%= comment.user.avatar_url %>"></a>
           <strong class="css-truncate">
             <a class="author Link--primary css-truncate-target width-fit" show_full_name="false" data-hovercard-type="user" data-hovercard-url="/users/<%= comment.user.login %>/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/<%= comment.user.login %>"><%= comment.user.login %></a>
           </strong>
