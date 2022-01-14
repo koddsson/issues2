@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.4"
+ruby "2.7.5"
 
 # Use local checkout of Rails
 gem "rails", "7.0.0.alpha2"
